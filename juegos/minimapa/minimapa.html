@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mapa de Aventuras 🗺️ | 21 de Septiembre</title>
+
+  <link rel="icon" href="../../flowers.png" type="image/x-icon" />
+
+  <!-- Google Fonts: Estilo arcade/retro combinado con romántico -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Press+Start+2P&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="minimapa.css" />
+</head>
+<body>
+
+  <div id="glow-container"></div>
+
+  <div class="map-wrapper">
+    
+    <!-- Barra Superior -->
+    <header class="map-header">
+      <a href="../../index.html" class="btn-back">&larr; Volver al inicio</a>
+      <div class="header-title">
+        <span class="retro-badge">WORLD 21-09</span>
+        <h1>El Mapa de la Jefecita</h1>
+        <p class="subtitle">Supera cada nivel para conseguir las 4 llaves maestras 🔑</p>
+      </div>
+      <div class="stats-counter">
+        <span>⭐</span> <span id="cleared-count">0/4</span>
+      </div>
+    </header>
+
+    <!-- Tablero de Juego Estilo Mario -->
+    <main class="board-container">
+      
+      <!-- SVG para trazar los caminos punteados entre niveles -->
+      <svg class="map-paths" viewBox="0 0 800 360" preserveAspectRatio="none">
+        <!-- Camino 1 -> 2 -->
+        <path d="M 120 180 Q 210 60 300 180" class="path-line" />
+        <!-- Camino 2 -> 3 -->
+        <path d="M 300 180 Q 390 300 480 180" class="path-line" />
+        <!-- Camino 3 -> 4 -->
+        <path d="M 480 180 Q 570 60 660 180" class="path-line" />
+      </svg>
+
+      <!-- Nodos de Niveles -->
+      <div class="levels-container">
+        
+        <!-- Nivel 1: Flores -->
+        <div class="level-node" id="node-1" data-level="1" style="left: 15%; top: 50%;">
+          <div class="node-badge">WORLD 1</div>
+          <a href="../juego1/juego1.html" class="node-circle">
+            <span class="icon">🌻</span>
+            <span class="status-flag">📍</span>
+          </a>
+          <span class="node-title">Jardín Amarillo</span>
+        </div>
+
+        <!-- Nivel 2: Galería -->
+        <div class="level-node" id="node-2" data-level="2" style="left: 38%; top: 50%;">
+          <div class="node-badge">WORLD 2</div>
+          <a href="../juego2/juego2.html" class="node-circle">
+            <span class="icon">📸</span>
+            <span class="status-flag">📍</span>
+          </a>
+          <span class="node-title">Recuerdos</span>
+        </div>
+
+        <!-- Nivel 3: Cartas -->
+        <div class="level-node" id="node-3" data-level="3" style="left: 61%; top: 50%;">
+          <div class="node-badge">WORLD 3</div>
+          <a href="../juego3/juego3.html" class="node-circle">
+            <span class="icon">💌</span>
+            <span class="status-flag">📍</span>
+          </a>
+          <span class="node-title">Palabras Secretas</span>
+        </div>
+
+        <!-- Nivel 4: Canción / Final Boss -->
+        <div class="level-node castle" id="node-4" data-level="4" style="left: 84%; top: 50%;">
+          <div class="node-badge">FINAL</div>
+          <a href="../juego4/juego4.html" class="node-circle castle-circle">
+            <span class="icon">🎵</span>
+            <span class="status-flag">🏰</span>
+          </a>
+          <span class="node-title">El Gran Acorde</span>
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- Mensaje de Estado / Claves -->
+    <footer class="map-footer">
+      <div class="clue-box">
+        <p id="footer-status-text">🎮 Selecciona un nivel en el mapa para iniciar tu misión.</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="minimapa.js"></script>
+</body>
+</html>

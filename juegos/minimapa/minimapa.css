@@ -1,0 +1,281 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #091a20 0%, #03080b 70%, #010406 100%);
+  font-family: 'Poppins', sans-serif;
+  color: #e5f4f4;
+  overflow-x: hidden;
+  position: relative;
+  padding: 30px 20px;
+}
+
+#glow-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.map-wrapper {
+  position: relative;
+  z-index: 10;
+  max-width: 1050px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Header Retro */
+.map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.btn-back {
+  color: #a5e7dc;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: rgba(14, 56, 56, 0.4);
+  border: 1px solid rgba(77, 208, 225, 0.25);
+  padding: 8px 18px;
+  border-radius: 20px;
+  transition: all 0.25s ease;
+}
+
+.btn-back:hover {
+  background: rgba(22, 160, 133, 0.3);
+  color: #fff;
+  border-color: #64ffda;
+  transform: translateX(-4px);
+}
+
+.header-title {
+  text-align: center;
+  flex: 1;
+}
+
+.retro-badge {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.65rem;
+  color: #ffd32a;
+  background: rgba(255, 211, 42, 0.12);
+  border: 1px dashed rgba(255, 211, 42, 0.4);
+  padding: 5px 12px;
+  border-radius: 6px;
+  letter-spacing: 1px;
+}
+
+.header-title h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.8rem;
+  color: #ffe600;
+  text-shadow: 0 0 16px rgba(255, 230, 0, 0.45);
+  margin-top: 6px;
+  line-height: 1.1;
+}
+
+.subtitle {
+  font-size: 0.88rem;
+  color: #a0bec0;
+}
+
+.stats-counter {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.85rem;
+  color: #ffea79;
+  background: rgba(6, 20, 24, 0.85);
+  border: 2px solid #ffd32a;
+  padding: 10px 16px;
+  border-radius: 14px;
+  box-shadow: 0 0 14px rgba(255, 211, 42, 0.25);
+}
+
+/* Tablero de Mario */
+.board-container {
+  position: relative;
+  background: rgba(6, 20, 24, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 2px solid rgba(77, 208, 225, 0.25);
+  border-radius: 28px;
+  height: 380px;
+  width: 100%;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.65), 
+              inset 0 0 40px rgba(10, 42, 48, 0.5);
+  overflow: hidden;
+}
+
+/* Caminos SVG Punteados */
+.map-paths {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.path-line {
+  fill: none;
+  stroke: #ffea79;
+  stroke-width: 5;
+  stroke-dasharray: 10 10;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px rgba(255, 211, 42, 0.6));
+  animation: dashMove 12s linear infinite;
+}
+
+@keyframes dashMove {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+/* Contenedor de Nodos */
+.levels-container {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+}
+
+/* Nodo individual */
+.level-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.node-badge {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.55rem;
+  color: #ffea79;
+  background: #020b0d;
+  border: 1px solid rgba(255, 211, 42, 0.4);
+  padding: 3px 6px;
+  border-radius: 4px;
+}
+
+.node-circle {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  background: radial-gradient(circle, #ffd32a 20%, #d48806 80%);
+  border: 4px solid #ffffff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 
+              0 0 20px rgba(255, 211, 42, 0.4);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: bounceNode 2.5s ease-in-out infinite;
+}
+
+.level-node:nth-child(2) .node-circle { animation-delay: 0.4s; }
+.level-node:nth-child(3) .node-circle { animation-delay: 0.8s; }
+.level-node:nth-child(4) .node-circle { animation-delay: 1.2s; }
+
+@keyframes bounceNode {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.node-circle:hover {
+  transform: scale(1.15) translateY(-5px) !important;
+  box-shadow: 0 12px 25px rgba(255, 211, 42, 0.7);
+}
+
+.node-circle .icon {
+  font-size: 2rem;
+}
+
+.status-flag {
+  position: absolute;
+  top: -12px;
+  right: -8px;
+  font-size: 1.1rem;
+}
+
+.node-title {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  white-space: nowrap;
+}
+
+/* Estilo Castillo / Boss Nivel 4 */
+.castle-circle {
+  background: radial-gradient(circle, #e74c3c 20%, #8e1a10 80%) !important;
+  border-color: #ffea79 !important;
+  box-shadow: 0 0 25px rgba(231, 76, 60, 0.6) !important;
+}
+
+/* Nivel Completado */
+.level-node.completed .node-circle {
+  background: radial-gradient(circle, #2ecc71 20%, #218c53 80%) !important;
+  border-color: #ffd32a;
+}
+
+.level-node.completed .status-flag {
+  content: '⭐';
+}
+
+/* Footer & Cuadro de texto */
+.clue-box {
+  background: rgba(9, 27, 32, 0.65);
+  border: 1px solid rgba(77, 208, 225, 0.25);
+  border-radius: 18px;
+  padding: 16px 22px;
+  text-align: center;
+  font-size: 0.92rem;
+  color: #ffea79;
+}
+
+/* Luces */
+.firefly {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(105vh) scale(0.4); opacity: 0; }
+  30% { opacity: 0.9; }
+  80% { opacity: 0.8; }
+  100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
+
+/* Adaptación Responsive a Móvil (Cambio a Camino Vertical) */
+@media (max-width: 768px) {
+  .board-container {
+    height: 600px;
+  }
+
+  .map-paths {
+    display: none; /* En móvil se apilan en zigzag sin el SVG horizontal */
+  }
+
+  #node-1 { left: 30% !important; top: 15% !important; }
+  #node-2 { left: 70% !important; top: 38% !important; }
+  #node-3 { left: 30% !important; top: 62% !important; }
+  #node-4 { left: 70% !important; top: 85% !important; }
+
+  .header-title h1 {
+    font-size: 2.2rem;
+  }
+}

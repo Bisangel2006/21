@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>21</title>
   <link rel="icon" href="flowers.png" type="image/x-icon" />
-
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,12 +14,32 @@
 </head>
 <body>
 
-  <!-- Luciérnagas / partículas de fondo -->
+  <!-- Luciérnagas / destellos -->
   <div id="glow-container"></div>
 
-  <main class="page-wrapper">
+  <!-- Layout Simétrico: 2 a la izquierda, Centro, 2 a la derecha -->
+  <main class="layout-container">
 
-    <!-- Tarjeta Central: Mensaje Principal -->
+    <!-- COLUMNA IZQUIERDA -->
+    <div class="side-column">
+      <!-- Card 1: Flores -->
+      <article class="side-card">
+        <div class="card-icon">🌻</div>
+        <h3>Flores Amarillas</h3>
+        <p>Un jardín que no se marchita</p>
+        <a href="flores/Flores.html" class="btn-card">Entrar</a>
+      </article>
+
+      <!-- Card 2: Galería -->
+      <article class="side-card">
+        <div class="card-icon">📸</div>
+        <h3>Nuestros Momentos</h3>
+        <p>Pedacitos de nuestra historia</p>
+        <a href="galeria/galeria.html" class="btn-card">Ver fotos</a>
+      </article>
+    </div>
+
+    <!-- CENTRO: MENSAJE PRINCIPAL -->
     <section class="card main-card">
       <span class="badge">🌻 21 de Septiembre</span>
       <h1>Para mi Niña</h1>
@@ -29,36 +48,33 @@
         Dicen que este día se regalan flores amarillas para iluminar el camino y quedarse siempre. 
         Preparé este rincón solo para ti.
       </p>
+
+      <!-- Botón al Minimapa de Juegos -->
+      <div class="map-action">
+        <a href="juegos/minimapa/minimapa.html" class="btn-minimap">
+          <span>🗺️</span> Ir al Minimapa
+        </a>
+      </div>
     </section>
 
-    <!-- Fila de Tarjetas Interactivas -->
-    <section class="cards-grid">
-
-      <!-- Card 1: Flores -->
-      <article class="feature-card">
-        <div class="card-icon">🌻</div>
-        <h3>Flores Amarillas</h3>
-        <p>Un jardín que no se marchita</p>
-        <a href="flores/Flores.html" class="btn-card">Entrar</a>
+    <!-- COLUMNA DERECHA -->
+    <div class="side-column">
+      <!-- Card 3: Cartas -->
+      <article class="side-card">
+        <div class="card-icon">💌</div>
+        <h3>Cartas para Ti</h3>
+        <p>Palabras desde el corazón</p>
+        <a href="cartas/cartas.html" class="btn-card">Leer</a>
       </article>
 
-      <!-- Card 2: Galería de Recuerdos -->
-      <article class="feature-card">
-        <div class="card-icon">📸</div>
-        <h3>Nuestros Momentos</h3>
-        <p>Pedacitos de nuestra historia</p>
-        <a href="galeria/galeria.html" class="btn-card">Ver fotos</a>
-      </article>
-
-      <!-- Card 3: Canción -->
-      <article class="feature-card">
+      <!-- Card 4: Canción -->
+      <article class="side-card">
         <div class="card-icon">🎵</div>
         <h3>Nuestra Canción</h3>
         <p>Háblate de mí</p>
         <a href="cancion/Joseanlog.html" class="btn-card">Escuchar</a>
       </article>
-
-    </section>
+    </div>
 
   </main>
 
