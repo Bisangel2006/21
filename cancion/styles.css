@@ -1,0 +1,346 @@
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --dark-color: #001525;
+  --stem-color: #00bb70;
+  --stem-accent: #0aa;
+  --leaf-color: #00aa90;
+  --petal-color: #ffdd00;
+  --petal-highlight: #ffffff;
+  --center-color: #dd5500;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--dark-color);
+  overflow: hidden;
+}
+
+.night {
+  z-index: -2;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(30,60,50,0.15) 0%, var(--dark-color) 80%);
+}
+
+.ambient-light {
+  position: absolute;
+  width: 70vw;
+  height: 70vh;
+  background: radial-gradient(circle, rgba(255,230,100,0.05) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  filter: blur(40px);
+}
+
+.star {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  opacity: 0.7;
+  filter: blur(0.5px);
+}
+
+.star.yellow {
+  background-color: rgba(255, 230, 100, 0.8);
+}
+
+.star.blue {
+  background-color: rgba(100, 200, 255, 0.8);
+}
+
+.flowers-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.base-plants {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 20vh;
+  z-index: 1;
+}
+
+.flower {
+  position: absolute;
+  bottom: 0;
+  z-index: 10;
+  transform-origin: bottom center;
+  animation: stemSway 8s ease-in-out infinite;
+}
+
+@keyframes stemSway {
+  0%, 100% { transform: rotate(-1deg); }
+  50% { transform: rotate(1deg); }
+}
+
+.stem-path {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  fill: none;
+  stroke: var(--stem-color);
+  stroke-width: 4;
+  stroke-linecap: round;
+  opacity: 0;
+  filter: drop-shadow(0 0 8px rgba(0, 200, 150, 0.1));
+  animation: drawStem 2.5s ease-out forwards;
+}
+
+@keyframes drawStem {
+  0% {
+    opacity: 1;
+    stroke-dashoffset: var(--length);
+  }
+  100% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+.leaf {
+  position: absolute;
+  width: 40px;
+  height: 16px;
+  background-color: var(--leaf-color);
+  border-radius: 50%;
+  transform-origin: var(--origin);
+  opacity: 0;
+  transform: rotate(var(--angle)) scale(0);
+  animation: growLeaf 1.5s ease-out forwards;
+  animation-delay: var(--delay);
+  filter: drop-shadow(0 0 5px rgba(0, 170, 150, 0.2));
+}
+
+@keyframes growLeaf {
+  from {
+    transform: rotate(var(--angle)) scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(var(--angle)) scale(1);
+    opacity: 1;
+  }
+}
+
+.flower-head {
+  position: absolute;
+  width: var(--flower-size);
+  height: var(--flower-size);
+  transform: translate(-50%, -50%) scale(0);
+  transform-origin: center;
+  animation: growFlower 1.5s ease-out forwards;
+  animation-delay: var(--delay);
+  z-index: 15;
+  filter: drop-shadow(0 0 10px rgba(255, 220, 0, 0.15));
+}
+
+@keyframes growFlower {
+  from {
+    transform: translate(-50%, -50%) scale(0);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.petals {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  animation: gentleRotate 15s linear infinite;
+}
+
+@keyframes gentleRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.petal {
+  position: absolute;
+  width: 45%;
+  height: 45%;
+  background-color: var(--petal-color);
+  border-radius: 50%;
+  top: 27.5%;
+  left: 27.5%;
+  transform-origin: center;
+  box-shadow: 0 0 10px rgba(255, 220, 0, 0.2);
+}
+
+.petal::after {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 30%;
+  width: 40%;
+  height: 20%;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+}
+
+.center {
+  position: absolute;
+  width: 35%;
+  height: 35%;
+  background-color: var(--center-color);
+  border-radius: 50%;
+  top: 32.5%;
+  left: 32.5%;
+  z-index: 5;
+  box-shadow: 0 0 5px rgba(220, 100, 0, 0.5);
+}
+
+.center::after {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  width: 60%;
+  height: 60%;
+  background-color: rgba(100, 50, 0, 0.6);
+  border-radius: 50%;
+}
+
+.glow {
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(circle, rgba(255,255,100,0.25) 0%, rgba(255,255,100,0) 70%);
+  top: -25%;
+  left: -25%;
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 0;
+  animation: glowPulse 4s ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
+.spiral {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--stem-accent);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0);
+  animation: growSpiral 1.5s ease-out forwards;
+  animation-delay: var(--delay);
+  z-index: 6;
+}
+
+@keyframes growSpiral {
+  from {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotate(360deg);
+    opacity: 1;
+  }
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background-color: rgba(255, 255, 150, 0.8);
+  border-radius: 50%;
+  filter: blur(1px);
+  opacity: 0;
+  z-index: 20;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), var(--y));
+    opacity: 0;
+  }
+}
+
+.base-leaf {
+  position: absolute;
+  background: linear-gradient(to bottom, var(--leaf-color), rgba(0,80,80,0.2));
+  border-radius: 50% 50% 0 0;
+  transform-origin: bottom center;
+  opacity: 0;
+  transform: scale(0);
+  animation: growBaseLeaf 2s ease-out forwards;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3) inset;
+  z-index: 2;
+}
+
+@keyframes growBaseLeaf {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotate(var(--rotate, 0deg));
+    opacity: 1;
+  }
+}
+
+.mensaje {
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
+  text-align: center;
+  color: var(--petal-color);
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  line-height: 1.8;
+  opacity: 0;
+  animation: fadeIn 2s ease-in-out 4s forwards;
+  z-index: 100;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .mensaje {
+    font-size: 18px;
+    bottom: 5%;
+  }
+}

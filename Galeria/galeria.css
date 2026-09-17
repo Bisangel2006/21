@@ -1,0 +1,256 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #091a20 0%, #03080b 70%, #010406 100%);
+  font-family: 'Poppins', sans-serif;
+  color: #e5f4f4;
+  overflow-x: hidden;
+  position: relative;
+  padding: 40px 20px 80px 20px;
+}
+
+/* Luces flotantes */
+#glow-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Envoltorio principal */
+.gallery-wrapper {
+  position: relative;
+  z-index: 10;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Header */
+.gallery-header {
+  text-align: center;
+  margin-bottom: 45px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-back {
+  align-self: flex-start;
+  color: #a5e7dc;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background: rgba(14, 56, 56, 0.4);
+  border: 1px solid rgba(77, 208, 225, 0.25);
+  padding: 8px 18px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  margin-bottom: 10px;
+}
+
+.btn-back:hover {
+  background: rgba(22, 160, 133, 0.3);
+  color: #ffffff;
+  border-color: #64ffda;
+  transform: translateX(-4px);
+}
+
+.badge {
+  display: inline-block;
+  background: rgba(255, 211, 42, 0.1);
+  color: #ffea79;
+  border: 1px solid rgba(255, 211, 42, 0.35);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 30px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.gallery-header h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 3.5rem;
+  color: #ffe600;
+  text-shadow: 0 0 18px rgba(255, 230, 0, 0.4);
+  line-height: 1.1;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #b0c9cb;
+  max-width: 580px;
+  line-height: 1.7;
+}
+
+.highlight {
+  color: #ffea79;
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* Grid de fotos */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 26px;
+  width: 100%;
+}
+
+/* Card individual para cada foto */
+.gallery-item {
+  background: rgba(9, 27, 32, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(77, 208, 225, 0.18);
+  border-radius: 20px;
+  padding: 14px;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.35s ease, 
+              box-shadow 0.35s ease;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-item:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(255, 211, 42, 0.45);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.65), 
+              0 0 25px rgba(255, 211, 42, 0.2);
+}
+
+.img-frame {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #03080b;
+}
+
+.img-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item:hover .img-frame img {
+  transform: scale(1.06);
+}
+
+.caption {
+  margin-top: 12px;
+  font-size: 0.88rem;
+  color: #e5f4f4;
+  text-align: center;
+  font-weight: 500;
+  padding: 4px 6px 2px 6px;
+}
+
+/* Modal / Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(1, 4, 6, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  padding: 20px;
+}
+
+.lightbox.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-content {
+  max-width: 90vw;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.lightbox-content img {
+  max-width: 100%;
+  max-height: 75vh;
+  border-radius: 18px;
+  border: 1px solid rgba(77, 208, 225, 0.3);
+  box-shadow: 0 0 35px rgba(255, 211, 42, 0.25);
+  object-fit: contain;
+}
+
+#lightbox-caption {
+  font-size: 1rem;
+  color: #ffea79;
+  font-weight: 500;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 25px;
+  right: 35px;
+  background: transparent;
+  border: none;
+  color: #e5f4f4;
+  font-size: 2.8rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.lightbox-close:hover {
+  color: #ffd32a;
+  transform: scale(1.15);
+}
+
+/* Luciérnagas / Partículas */
+.firefly {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(105vh) scale(0.4); opacity: 0; }
+  30% { opacity: 0.9; }
+  80% { opacity: 0.8; }
+  100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .gallery-header h1 {
+    font-size: 2.7rem;
+  }
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+  .lightbox-close {
+    top: 15px;
+    right: 20px;
+    font-size: 2.2rem;
+  }
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nuestros Momentos 📸 | 21 de Septiembre</title>
+
+  <link rel="icon" href="../flowers.png" type="image/x-icon" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="galeria.css" />
+</head>
+<body>
+
+  <!-- Luciérnagas de fondo -->
+  <div id="glow-container"></div>
+
+  <div class="gallery-wrapper">
+    
+    <!-- Encabezado -->
+    <header class="gallery-header">
+      <a href="../index.html" class="btn-back">&larr; Volver al inicio</a>
+      <span class="badge">🌻 21 DE SEPTIEMBRE</span>
+      <h1>Nuestros Momentos</h1>
+      <p class="subtitle">
+        Cada recuerdo a tu lado es como una flor que nunca se marchita, 
+      </p>
+              <span class="highlight">tuktan mairin nais</span>
+    </header>
+
+    <!-- Cuadrícula de Fotos -->
+    <main class="gallery-grid">
+      <!-- Foto 1 -->
+      <figure class="gallery-item">
+        <div class="img-frame">
+          <img src="img/foto1.jpg" alt="Recuerdo especial" loading="lazy" />
+        </div>
+        <figcaption class="caption">Un instante inolvidable ✨</figcaption>
+      </figure>
+
+      <!-- Foto 2 -->
+      <figure class="gallery-item">
+        <div class="img-frame">
+          <img src="img/foto2.jpg" alt="Recuerdo especial" loading="lazy" />
+        </div>
+        <figcaption class="caption">Tu risa, mi favorita 💛</figcaption>
+      </figure>
+
+      <!-- Foto 3 -->
+      <figure class="gallery-item">
+        <div class="img-frame">
+          <img src="img/foto3.jpg" alt="Recuerdo especial" loading="lazy" />
+        </div>
+        <figcaption class="caption">Contigo todo es mejor 🌻</figcaption>
+      </figure>
+
+      <!-- Foto 4 -->
+      <figure class="gallery-item">
+        <div class="img-frame">
+          <img src="img/foto4.jpg" alt="Recuerdo especial" loading="lazy" />
+        </div>
+        <figcaption class="caption">Pedacitos de nuestra historia 💫</figcaption>
+      </figure>
+
+      <!-- Foto 5 -->
+      <figure class="gallery-item">
+        <div class="img-frame">
+          <img src="img/foto5.jpg" alt="Recuerdo especial" loading="lazy" />
+        </div>
+        <figcaption class="caption">Siempre juntos, jefecita 🌙</figcaption>
+      </figure>
+
+      <!-- Foto 6 -->
+      <figure class="gallery-item">
+        <div class="img-frame">
+          <img src="img/foto6.jpg" alt="Recuerdo especial" loading="lazy" />
+        </div>
+        <figcaption class="caption">Para toda la vida 🌼</figcaption>
+      </figure>
+
+          <!-- Foto 6 -->
+      <figure class="gallery-item">
+        <div class="img-frame">
+          <img src="img/foto6.jpg" alt="Recuerdo especial" loading="lazy" />
+        </div>
+        <figcaption class="caption">Para toda la vida 🌼</figcaption>
+      </figure>
+
+    </main>
+  </div>
+
+  <!-- Modal / Lightbox para ver la imagen en grande -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Cerrar">&times;</button>
+    <div class="lightbox-content">
+      <img id="lightbox-img" src="" alt="Vista ampliada" />
+      <p id="lightbox-caption"></p>
+    </div>
+  </div>
+
+  <script src="galeria.js"></script>
+</body>
+</html>
