@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Partículas de luciérnagas
+  // 1. Efecto de Luciérnagas
   const glowContainer = document.getElementById('glow-container');
   function createFirefly() {
     if (!glowContainer) return;
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   setInterval(createFirefly, 380);
 
-  // 2. Comprobación del progreso guardado en localStorage
+  // 2. Comprobar niveles superados
   let completedCount = 0;
 
   for (let i = 1; i <= 4; i++) {
@@ -38,17 +38,57 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Actualizar contador del header
+  // Actualizar contador
   const counterEl = document.getElementById('cleared-count');
   if (counterEl) {
     counterEl.textContent = `${completedCount}/4`;
   }
 
-  // Mensaje en la caja inferior
   const statusBox = document.getElementById('footer-status-text');
+  const cutsceneOverlay = document.getElementById('cutscene-overlay');
+  const btnClaim = document.getElementById('btn-claim-rewards');
+
   if (completedCount === 4) {
-    statusBox.innerHTML = '🎉 ¡Increíble jefecita! Has desbloqueado todas las claves maestras.';
+    // Almacenamiento blindado
+    localStorage.setItem('all_levels_completed', 'true');
+    localStorage.setItem('cards_unlocked_forever', 'true');
+
+    if (statusBox) {
+      statusBox.innerHTML = '🎉 ¡Increíble jefecita! Has desbloqueado todas las claves maestras. <button id="rever-cinematica" style="margin-left:8px;background:none;border:1px solid #ffd32a;color:#ffd32a;border-radius:12px;padding:3px 10px;cursor:pointer;">Ver Cinemática ✨</button>';
+      
+      const reverBtn = document.getElementById('rever-cinematica');
+      if (reverBtn) {
+        reverBtn.addEventListener('click', launchCutscene);
+      }
+    }
+
+    const hasSeenCutscene = localStorage.getItem('cinematica_mostrada');
+    if (!hasSeenCutscene) {
+      setTimeout(() => {
+        launchCutscene();
+      }, 700);
+    }
   } else if (completedCount > 0) {
-    statusBox.innerHTML = `Llevas <strong>${completedCount}</strong> de 4 niveles superados. ¡Sigue adelante!`;
+    if (statusBox) {
+      statusBox.innerHTML = `Llevas <strong>${completedCount}</strong> de 4 niveles superados. ¡Sigue adelante!`;
+    }
+  }
+
+  function launchCutscene() {
+    if (!cutsceneOverlay) return;
+    cutsceneOverlay.style.display = 'flex';
+    localStorage.setItem('cinematica_mostrada', 'true');
+    localStorage.setItem('cards_unlocked_forever', 'true');
+
+    if (btnClaim) {
+      btnClaim.onclick = () => {
+        window.location.href = '../../index.html?unlocked=true';
+      };
+    }
+
+    // Auto-redirección de respaldo
+    setTimeout(() => {
+      window.location.href = '../../index.html?unlocked=true';
+    }, 9000);
   }
 });

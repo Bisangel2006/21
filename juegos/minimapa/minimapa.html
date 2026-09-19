@@ -38,11 +38,8 @@
       
       <!-- SVG para trazar los caminos punteados entre niveles -->
       <svg class="map-paths" viewBox="0 0 800 360" preserveAspectRatio="none">
-        <!-- Camino 1 -> 2 -->
         <path d="M 120 180 Q 210 60 300 180" class="path-line" />
-        <!-- Camino 2 -> 3 -->
         <path d="M 300 180 Q 390 300 480 180" class="path-line" />
-        <!-- Camino 3 -> 4 -->
         <path d="M 480 180 Q 570 60 660 180" class="path-line" />
       </svg>
 
@@ -56,7 +53,7 @@
             <span class="icon">🌻</span>
             <span class="status-flag">📍</span>
           </a>
-          <span class="node-title">Jardín Amarillo</span>
+          <span class="node-title">Jardín</span>
         </div>
 
         <!-- Nivel 2: Galería -->
@@ -76,7 +73,7 @@
             <span class="icon">💌</span>
             <span class="status-flag">📍</span>
           </a>
-          <span class="node-title">Palabras Secretas</span>
+          <span class="node-title">Cartas</span>
         </div>
 
         <!-- Nivel 4: Canción / Final Boss -->
@@ -86,20 +83,42 @@
             <span class="icon">🎵</span>
             <span class="status-flag">🏰</span>
           </a>
-          <span class="node-title">El Gran Acorde</span>
+          <span class="node-title">Final</span>
         </div>
 
       </div>
 
     </main>
 
-    <!-- Mensaje de Estado / Claves -->
+    <!-- Mensaje de Estado -->
     <footer class="map-footer">
       <div class="clue-box">
         <p id="footer-status-text">🎮 Selecciona un nivel en el mapa para iniciar tu misión.</p>
       </div>
     </footer>
 
+  </div>
+
+  <!-- Cinemática de Victoria Final -->
+  <div id="cutscene-overlay" class="cutscene-overlay" style="display: none;">
+    <div class="cutscene-backdrop"></div>
+    <div class="cutscene-content">
+      <div class="cutscene-keys">
+        <span class="key-item">🌻</span>
+        <span class="key-item">📸</span>
+        <span class="key-item">💌</span>
+        <span class="key-item">🎵</span>
+      </div>
+      <span class="cutscene-tag">¡MISIÓN CUMPLIDA!</span>
+      <h2 class="cutscene-title">¡Has Conseguido las 4 Llaves Maestras!</h2>
+      <p class="cutscene-text">
+        Superaste cada desafío con éxito. El sello dorado ha caído y los regalos secretos en el inicio te esperan.
+      </p>
+      <button id="btn-claim-rewards" class="btn-cutscene">
+        ✨ Reclamar Regalos Sorpresa ✨
+      </button>
+      <span class="cutscene-timer">Redirigiendo automáticamente al inicio...</span>
+    </div>
   </div>
 
   <script src="minimapa.js"></script>

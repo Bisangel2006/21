@@ -100,7 +100,7 @@ body {
   box-shadow: 0 0 14px rgba(255, 211, 42, 0.25);
 }
 
-/* Tablero de Mario */
+/* Tablero */
 .board-container {
   position: relative;
   background: rgba(6, 20, 24, 0.72);
@@ -115,7 +115,7 @@ body {
   overflow: hidden;
 }
 
-/* Caminos SVG Punteados */
+/* Caminos SVG */
 .map-paths {
   position: absolute;
   inset: 0;
@@ -135,9 +135,7 @@ body {
 }
 
 @keyframes dashMove {
-  to {
-    stroke-dashoffset: -100;
-  }
+  to { stroke-dashoffset: -100; }
 }
 
 /* Contenedor de Nodos */
@@ -147,7 +145,6 @@ body {
   z-index: 5;
 }
 
-/* Nodo individual */
 .level-node {
   position: absolute;
   transform: translate(-50%, -50%);
@@ -217,24 +214,17 @@ body {
   white-space: nowrap;
 }
 
-/* Estilo Castillo / Boss Nivel 4 */
 .castle-circle {
   background: radial-gradient(circle, #e74c3c 20%, #8e1a10 80%) !important;
   border-color: #ffea79 !important;
   box-shadow: 0 0 25px rgba(231, 76, 60, 0.6) !important;
 }
 
-/* Nivel Completado */
 .level-node.completed .node-circle {
   background: radial-gradient(circle, #2ecc71 20%, #218c53 80%) !important;
   border-color: #ffd32a;
 }
 
-.level-node.completed .status-flag {
-  content: '⭐';
-}
-
-/* Footer & Cuadro de texto */
 .clue-box {
   background: rgba(9, 27, 32, 0.65);
   border: 1px solid rgba(77, 208, 225, 0.25);
@@ -245,7 +235,6 @@ body {
   color: #ffea79;
 }
 
-/* Luces */
 .firefly {
   position: absolute;
   border-radius: 50%;
@@ -260,14 +249,142 @@ body {
   100% { transform: translateY(-10vh) scale(1); opacity: 0; }
 }
 
-/* Adaptación Responsive a Móvil (Cambio a Camino Vertical) */
+/* ========================================================
+   CINEMÁTICA FINAL
+======================================================== */
+.cutscene-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: cutsceneFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.cutscene-backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(14, 56, 56, 0.92) 0%, rgba(2, 9, 12, 0.98) 100%);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.cutscene-content {
+  position: relative;
+  z-index: 10;
+  max-width: 580px;
+  width: 100%;
+  background: rgba(5, 23, 28, 0.88);
+  border: 2px solid #ffd32a;
+  box-shadow: 0 0 50px rgba(255, 211, 42, 0.45), inset 0 0 30px rgba(255, 211, 42, 0.15);
+  border-radius: 32px;
+  padding: 45px 35px;
+  text-align: center;
+  animation: cutscenePop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.cutscene-keys {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.key-item {
+  font-size: 2.2rem;
+  background: rgba(255, 211, 42, 0.15);
+  border: 2px solid #ffd32a;
+  border-radius: 50%;
+  width: 65px;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(255, 211, 42, 0.5);
+  animation: floatKey 2s ease-in-out infinite alternate;
+}
+
+.key-item:nth-child(2) { animation-delay: 0.3s; }
+.key-item:nth-child(3) { animation-delay: 0.6s; }
+.key-item:nth-child(4) { animation-delay: 0.9s; }
+
+@keyframes floatKey {
+  0% { transform: translateY(0) rotate(-4deg); }
+  100% { transform: translateY(-10px) rotate(4deg); }
+}
+
+.cutscene-tag {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.72rem;
+  color: #ffd32a;
+  letter-spacing: 2px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.cutscene-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.8rem;
+  color: #ffe600;
+  text-shadow: 0 0 20px rgba(255, 230, 0, 0.6);
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.cutscene-text {
+  font-size: 0.96rem;
+  line-height: 1.7;
+  color: #d8f3dc;
+  margin-bottom: 26px;
+}
+
+.btn-cutscene {
+  background: linear-gradient(135deg, #ffd32a 0%, #f39c12 100%);
+  color: #061517;
+  border: none;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 14px 34px;
+  border-radius: 35px;
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(255, 211, 42, 0.65);
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.btn-cutscene:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 35px rgba(255, 211, 42, 0.85);
+}
+
+.cutscene-timer {
+  display: block;
+  font-size: 0.75rem;
+  color: #8da4a6;
+  margin-top: 14px;
+  font-style: italic;
+}
+
+@keyframes cutsceneFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes cutscenePop {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
 @media (max-width: 768px) {
   .board-container {
     height: 600px;
   }
 
   .map-paths {
-    display: none; /* En móvil se apilan en zigzag sin el SVG horizontal */
+    display: none;
   }
 
   #node-1 { left: 30% !important; top: 15% !important; }
@@ -277,5 +394,15 @@ body {
 
   .header-title h1 {
     font-size: 2.2rem;
+  }
+
+  .cutscene-title {
+    font-size: 2.1rem;
+  }
+
+  .key-item {
+    width: 52px;
+    height: 52px;
+    font-size: 1.7rem;
   }
 }

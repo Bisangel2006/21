@@ -1,32 +1,43 @@
 document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   // 1. CONTENIDO DE CADA CARTA
-  // Puedes editar o ampliar el texto de cada una libremente
   // ==========================================
   const cartas = {
     1: {
       titulo: 'Para cuando me extrañes',
-      mensaje: `Sé que a veces los días se sienten pesados o la rutina nos separa un poco, pero quiero que recuerdes esto: cada pensamiento bonito de mi día lleva tu nombre.
+      mensaje: `Para cuando me extrañes, quisiera regalarte la fantasía de que, cada vez que mires al cielo por la noche y veas las estrellas titilando, recuerdes como en <em>El Principito</em> que todas ellas ríen porque en una de tantas estoy yo.
+      
+Sabrás que, desde algún rincón del universo, te estoy saludando: tal vez saltando de asteroide en planeta, tal vez aprendiendo o componiendo alguna nueva letra, estrofa o prosa que en algún futuro te podré enseñar y dedicar; tal vez leyendo algún cuento o persiguiendo fantasías de otros mundos.
 
-No importa qué tan lejos o qué tan ocupados estemos, en mi mente siempre hay un lugar seguro esperándote. Siempre estoy a una llamada o a un recuerdo de ti.`
+Pero quiero que tengas por seguro que no importa lo que haga, escriba, sueñe o diga: no saldrás jamás de mi mente.`
     },
     2: {
-      titulo: 'Por qué flores amarillas',
-      mensaje: `Dicen que regalar flores amarillas cada 21 de septiembre es una promesa sincera de quedarse y de iluminar la vida de la otra persona.
+      titulo: '¿Por qué flores?',
+      mensaje: `Para serte sincero, por mucha inteligencia o indicios de sabiduría que logre alcanzar hasta hoy, no te podría dar una respuesta exacta... Pero para mí, el hecho de dar o recibir flores representa una enorme muestra de afecto mutuo: el que las da entrega un pedacito de su corazón, y quien las recibe acepta cuidar con ternura esa parte de la que el otro se está despojando.
 
-No quería darte solo flores de esas que se marchitan a los días; quise regalarte este rinconcito digital, hecho línea por línea pensando en ti, para recordarte lo especial y radiante que eres en mi camino.`
+No sabría decirte con total certeza qué me impulsa; te diría de golpe que tal vez la pura inercia, pero sería mentirte. Mientras más lo pienso, más motivos encuentro (y menos digo para no sonar tan intenso) pero aqui va mi mejor intento de enumerar algunos de ellos:
+
+1. ¿Será tu sonrisa, que ilumina hasta mi día más oscuro?
+2. Tal vez tu cabello: no importa si está largo o corto, bien arreglado o despeinado tras un día largo, recogido o suelto... siempre luce precioso cuando lo acaricia el viento.
+3. ¿Serán tus ojos, que leen con facilidad los míos y calman cada colapso mientras me pierdo en tu mirada?
+4. Tal vez sea tu manera de amar y servir a Dios. Créeme que cuando te digo que lo que más me cautiva es tu fe sincera, es verdad; eres un ejemplo que a veces me cuesta alcanzar, pero que me inspira a seguir orando y creyendo en lo que más amo en este mundo: Dios.
+5. Quizá tu falta de cordura y lo bien que complementa mi locura. Cada vez que bromeamos, charlamos o simplemente compartimos un silencio, me parece increíble cómo, sin importar lo mal que pinte mi día, termino riendo a carcajadas a tu lado.
+6. Puede ser por cada recuerdo que aún no existe y por cada sueño que, por alguna linda razón, siento en el fondo que se hará realidad.
+7. Por esas y por unas <span style="color: #ffd32a; font-weight: 700;">6 o 7</span>  mil razones más, tengo este sentimiento tan claro de querer llenarte de flores, solo por ser esa personita tan especial.`
     },
     3: {
-      titulo: 'A mi jefecita consentida',
-      mensaje: `A veces mandona, a veces dulce, pero siempre auténtica. Me encanta tu risa, me encanta cuando te pones en tu papel de jefecita y me encanta la calma tan bonita que me das.
+      titulo: 'En todos lados',
+      mensaje: `Jajajaja, ¿recuerdas lo que te contesté la primera vez que me preguntaste si me gustabas? Yo sí: «Estás en todos lados... hasta en mi corazón».
 
-Gracias por ser tú, sin filtros y con toda esa energía que lo cambia todo a tu alrededor.`
+Pues desde antes de esa pregunta ha sido así, y sigue siéndolo. Es casi imposible no recordarte a cada instante; a veces no sé si soy yo buscándote a propósito para no soltarte, o si simplemente el destino hace que siempre coincida contigo.`
     },
     4: {
-      titulo: 'Una promesa',
-      mensaje: `Te prometo escuchar tus historias incluso cuando sean largas o repetidas. Te prometo acompañarte en tus días buenos y sostenerte la mano en los difíciles.
+      titulo: 'Mi locura personal',
+      mensaje: `Puede que suene a locura, la verdad, pero necesito sacar este sentir de mi cabeza: te quiero, por más que a veces intente disimularlo. Y te prometo que, por muy difícil o empinado que se ponga el camino, siempre lo cruzaré a tu lado; y por muy altas que tengas tus expectativas, siempre pondré todo de mí para superarlas.
 
-Pero sobre todo, te prometo no dar nunca por sentada la dicha de tenerte en mi vida, tuktan mairin nais.`
+No soy un superhombre ni mucho menos, pero si es por ti, daré lo mejor de mí. Sé de sobra que has podido y puedes sola con todo, pero no tienes por qué estarlo: Dios y yo estamos aquí para apoyarte en cada paso. Donde no te alcancen las fuerzas, sumaremos las mías; y donde no alcancen ni las tuyas ni las mías, siempre estará Él sosteniéndonos a los dos.
+
+Incluso en la distancia, sabes bien que dejaría lo que estuviera haciendo con tal de correr a tu lado y darte una mano.`
     }
   };
 
@@ -45,7 +56,7 @@ Pero sobre todo, te prometo no dar nunca por sentada la dicha de tenerte en mi v
       const id = card.getAttribute('data-letter');
       if (cartas[id]) {
         modalTitle.textContent = cartas[id].titulo;
-        modalBody.textContent = cartas[id].mensaje;
+        modalBody.innerHTML = cartas[id].mensaje.replace(/\n/g, '<br>');
         modal.classList.add('active');
         modal.setAttribute('aria-hidden', 'false');
       }

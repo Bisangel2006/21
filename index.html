@@ -17,24 +17,31 @@
   <!-- Luciérnagas / destellos -->
   <div id="glow-container"></div>
 
+  <!-- Banner de Notificación de Desbloqueo -->
+  <div id="unlock-banner" class="unlock-banner" style="display: none;">
+    🎉 ¡FELICITACIONES! Los 4 niveles han sido superados. Las cartas sorpresa están desbloqueadas. 🔓✨
+  </div>
+
   <!-- Layout Simétrico: 2 a la izquierda, Centro, 2 a la derecha -->
   <main class="layout-container">
 
     <!-- COLUMNA IZQUIERDA -->
     <div class="side-column">
       <!-- Card 1: Flores -->
-      <article class="side-card">
+      <article class="side-card reward-card locked" id="reward-1">
+        <div class="lock-shield">🔒</div>
         <div class="card-icon">🌻</div>
-        <h3>Flores Amarillas</h3>
-        <p>Un jardín que no se marchita</p>
+        <h3>Jardin</h3>
+        <p>...</p>
         <a href="flores/Flores.html" class="btn-card">Entrar</a>
       </article>
 
       <!-- Card 2: Galería -->
-      <article class="side-card">
+      <article class="side-card reward-card locked" id="reward-2">
+        <div class="lock-shield">🔒</div>
         <div class="card-icon">📸</div>
-        <h3>Nuestros Momentos</h3>
-        <p>Pedacitos de nuestra historia</p>
+        <h3>Mini Galería</h3>
+        <p>...</p>
         <a href="galeria/galeria.html" class="btn-card">Ver fotos</a>
       </article>
     </div>
@@ -42,11 +49,9 @@
     <!-- CENTRO: MENSAJE PRINCIPAL -->
     <section class="card main-card">
       <span class="badge">🌻 21 de Septiembre</span>
-      <h1>Para mi Niña</h1>
+      <h1>Para Shari</h1>
       <p class="dedicatoria">
-        Para la jefecita de mi vida, <span class="highlight">tuktan mairin nais</span>. 
-        Dicen que este día se regalan flores amarillas para iluminar el camino y quedarse siempre. 
-        Preparé este rincón solo para ti.
+        En todos lados ¿verdad?, <span class="highlight">tuktan mairin nais</span>. 
       </p>
 
       <!-- Botón al Minimapa de Juegos -->
@@ -60,18 +65,20 @@
     <!-- COLUMNA DERECHA -->
     <div class="side-column">
       <!-- Card 3: Cartas -->
-      <article class="side-card">
+      <article class="side-card reward-card locked" id="reward-3">
+        <div class="lock-shield">🔒</div>
         <div class="card-icon">💌</div>
-        <h3>Cartas para Ti</h3>
-        <p>Palabras desde el corazón</p>
+        <h3>Cartas</h3>
+        <p>...</p>
         <a href="cartas/cartas.html" class="btn-card">Leer</a>
       </article>
 
       <!-- Card 4: Canción -->
-      <article class="side-card">
+      <article class="side-card reward-card locked" id="reward-4">
+        <div class="lock-shield">🔒</div>
         <div class="card-icon">🎵</div>
-        <h3>Nuestra Canción</h3>
-        <p>Háblate de mí</p>
+        <h3>La primer cancion</h3>
+        <p>...</p>
         <a href="cancion/Joseanlog.html" class="btn-card">Escuchar</a>
       </article>
     </div>

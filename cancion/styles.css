@@ -1,346 +1,313 @@
 *,
-*::after,
-*::before {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 :root {
-  --dark-color: #001525;
-  --stem-color: #00bb70;
-  --stem-accent: #0aa;
-  --leaf-color: #00aa90;
-  --petal-color: #ffdd00;
-  --petal-highlight: #ffffff;
-  --center-color: #dd5500;
+    --green: #82cd21;
+    --green-glow: rgba(130, 205, 33, 0.45);
+    --dark-bg: #10111d;
+    --card-bg: rgba(22, 23, 41, 0.78);
+    --paper-white: #f5f4ef;
 }
 
 body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background-color: var(--dark-color);
-  overflow: hidden;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at center, #1b1c31 0%, var(--dark-bg) 80%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
 }
 
-.night {
-  z-index: -2;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at center, rgba(30,60,50,0.15) 0%, var(--dark-color) 80%);
+#canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
 }
 
-.ambient-light {
-  position: absolute;
-  width: 70vw;
-  height: 70vh;
-  background: radial-gradient(circle, rgba(255,230,100,0.05) 0%, transparent 70%);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -1;
-  filter: blur(40px);
+/* Polaroids de Fondo */
+.polaroid-gallery {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
 }
 
-.star {
-  position: absolute;
-  background-color: white;
-  border-radius: 50%;
-  opacity: 0.7;
-  filter: blur(0.5px);
+.bg-polaroid {
+    position: absolute;
+    background: var(--paper-white);
+    padding: 10px 10px 30px 10px;
+    border-radius: 4px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.65);
+    opacity: 0.28;
+    filter: grayscale(40%) contrast(1.2);
+    transition: transform 0.6s ease, opacity 0.4s ease;
+    animation: floatDrift 12s ease-in-out infinite alternate;
 }
 
-.star.yellow {
-  background-color: rgba(255, 230, 100, 0.8);
+.bg-polaroid .img-box {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
 }
 
-.star.blue {
-  background-color: rgba(100, 200, 255, 0.8);
+.bg-polaroid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
-.flowers-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
+/* Cinta adhesiva (Tape) en las esquinas */
+.bg-polaroid .tape {
+    position: absolute;
+    top: -12px;
+    left: 30%;
+    width: 50px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    backdrop-filter: blur(2px);
+    transform: rotate(-4deg);
 }
 
-.base-plants {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 20vh;
-  z-index: 1;
+/* Posiciones orgánicas en las 4 esquinas */
+.p1 {
+    width: 180px;
+    height: 220px;
+    top: 6%;
+    left: 7%;
+    transform: rotate(-14deg);
+    animation-delay: 0s;
 }
 
-.flower {
-  position: absolute;
-  bottom: 0;
-  z-index: 10;
-  transform-origin: bottom center;
-  animation: stemSway 8s ease-in-out infinite;
+.p2 {
+    width: 210px;
+    height: 260px;
+    top: 8%;
+    right: 8%;
+    transform: rotate(18deg);
+    animation-delay: 2s;
 }
 
-@keyframes stemSway {
-  0%, 100% { transform: rotate(-1deg); }
-  50% { transform: rotate(1deg); }
+.p3 {
+    width: 190px;
+    height: 230px;
+    bottom: 8%;
+    left: 9%;
+    transform: rotate(12deg);
+    animation-delay: 4s;
 }
 
-.stem-path {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  fill: none;
-  stroke: var(--stem-color);
-  stroke-width: 4;
-  stroke-linecap: round;
-  opacity: 0;
-  filter: drop-shadow(0 0 8px rgba(0, 200, 150, 0.1));
-  animation: drawStem 2.5s ease-out forwards;
+.p4 {
+    width: 220px;
+    height: 270px;
+    bottom: 6%;
+    right: 7%;
+    transform: rotate(-20deg);
+    animation-delay: 1.5s;
 }
 
-@keyframes drawStem {
-  0% {
-    opacity: 1;
-    stroke-dashoffset: var(--length);
-  }
-  100% {
-    opacity: 1;
-    stroke-dashoffset: 0;
-  }
+@keyframes floatDrift {
+    0% {
+        transform: translateY(0px) rotate(var(--rot, -10deg));
+    }
+    100% {
+        transform: translateY(-20px) rotate(calc(var(--rot, -10deg) + 3deg));
+    }
 }
 
-.leaf {
-  position: absolute;
-  width: 40px;
-  height: 16px;
-  background-color: var(--leaf-color);
-  border-radius: 50%;
-  transform-origin: var(--origin);
-  opacity: 0;
-  transform: rotate(var(--angle)) scale(0);
-  animation: growLeaf 1.5s ease-out forwards;
-  animation-delay: var(--delay);
-  filter: drop-shadow(0 0 5px rgba(0, 170, 150, 0.2));
+/* Contenedor Central */
+.main {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-@keyframes growLeaf {
-  from {
-    transform: rotate(var(--angle)) scale(0);
-    opacity: 0;
-  }
-  to {
-    transform: rotate(var(--angle)) scale(1);
-    opacity: 1;
-  }
+.reproductor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 24%;
+    min-width: 440px;
+    padding: 45px 35px;
+    background: var(--card-bg);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 26px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 35px rgba(130, 205, 33, 0.15);
+    text-align: center;
 }
 
-.flower-head {
-  position: absolute;
-  width: var(--flower-size);
-  height: var(--flower-size);
-  transform: translate(-50%, -50%) scale(0);
-  transform-origin: center;
-  animation: growFlower 1.5s ease-out forwards;
-  animation-delay: var(--delay);
-  z-index: 15;
-  filter: drop-shadow(0 0 10px rgba(255, 220, 0, 0.15));
+.status-tag {
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: var(--green);
+    margin-bottom: 22px;
+    text-shadow: 0 0 10px var(--green-glow);
 }
 
-@keyframes growFlower {
-  from {
-    transform: translate(-50%, -50%) scale(0);
-  }
-  to {
-    transform: translate(-50%, -50%) scale(1);
-  }
+.polaroid-main {
+    padding: 12px 12px 30px 12px;
+    background: var(--paper-white);
+    border-radius: 6px;
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.6);
+    transform: rotate(-2deg);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.petals {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  animation: gentleRotate 15s linear infinite;
+.polaroid-main:hover {
+    transform: rotate(0deg) scale(1.02);
 }
 
-@keyframes gentleRotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.disc {
+    position: relative;
+    width: 230px;
+    height: 230px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #090a12;
+    animation: rotation 22s linear infinite;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.9);
 }
 
-.petal {
-  position: absolute;
-  width: 45%;
-  height: 45%;
-  background-color: var(--petal-color);
-  border-radius: 50%;
-  top: 27.5%;
-  left: 27.5%;
-  transform-origin: center;
-  box-shadow: 0 0 10px rgba(255, 220, 0, 0.2);
+.disc::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 16px 16px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 2;
 }
 
-.petal::after {
-  content: '';
-  position: absolute;
-  top: 20%;
-  left: 30%;
-  width: 40%;
-  height: 20%;
-  background-color: rgba(255, 255, 255, 0.6);
-  border-radius: 50%;
+.disc::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 32px;
+    height: 32px;
+    transform: translate(-50%, -50%);
+    background: var(--dark-bg);
+    border: 3px solid var(--paper-white);
+    border-radius: 50%;
+    z-index: 3;
 }
 
-.center {
-  position: absolute;
-  width: 35%;
-  height: 35%;
-  background-color: var(--center-color);
-  border-radius: 50%;
-  top: 32.5%;
-  left: 32.5%;
-  z-index: 5;
-  box-shadow: 0 0 5px rgba(220, 100, 0, 0.5);
+.disc img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.center::after {
-  content: '';
-  position: absolute;
-  top: 20%;
-  left: 20%;
-  width: 60%;
-  height: 60%;
-  background-color: rgba(100, 50, 0, 0.6);
-  border-radius: 50%;
+@keyframes rotation {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
-.glow {
-  position: absolute;
-  width: 150%;
-  height: 150%;
-  background: radial-gradient(circle, rgba(255,255,100,0.25) 0%, rgba(255,255,100,0) 70%);
-  top: -25%;
-  left: -25%;
-  border-radius: 50%;
-  z-index: -1;
-  opacity: 0;
-  animation: glowPulse 4s ease-in-out infinite;
-  animation-delay: var(--delay);
+.info {
+    margin-top: 26px;
+    margin-bottom: 22px;
 }
 
-@keyframes glowPulse {
-  0%, 100% {
-    opacity: 0.3;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.7;
+.info h1 {
+    font-family: 'Permanent Marker', cursive, sans-serif;
+    font-size: 2.8rem;
+    letter-spacing: 2px;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 5px;
+}
+
+.info p {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--green);
+    text-shadow: 0 0 12px var(--green-glow);
+}
+
+.control-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    position: relative;
+}
+
+.control-btn:hover {
+    background: var(--green);
+    border-color: var(--green);
+    color: #0b1302;
     transform: scale(1.1);
-  }
+    box-shadow: 0 0 25px var(--green-glow);
 }
 
-.spiral {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border: 2px solid var(--stem-accent);
-  border-radius: 50%;
-  opacity: 0;
-  transform: scale(0);
-  animation: growSpiral 1.5s ease-out forwards;
-  animation-delay: var(--delay);
-  z-index: 6;
+.play-icon, .pause-icon {
+    position: absolute;
+    transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-@keyframes growSpiral {
-  from {
-    transform: scale(0) rotate(0deg);
+.play-icon {
     opacity: 0;
-  }
-  to {
-    transform: scale(1) rotate(360deg);
+    transform: scale(0.8);
+}
+
+.pause-icon {
     opacity: 1;
-  }
+    transform: scale(1);
 }
 
-.particle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background-color: rgba(255, 255, 150, 0.8);
-  border-radius: 50%;
-  filter: blur(1px);
-  opacity: 0;
-  z-index: 20;
-}
-
-@keyframes float {
-  0% {
-    transform: translate(0, 0);
-    opacity: 0;
-  }
-  10% {
+.control-btn.paused .play-icon {
     opacity: 1;
-  }
-  100% {
-    transform: translate(var(--x), var(--y));
+    transform: scale(1.1);
+}
+
+.control-btn.paused .pause-icon {
     opacity: 0;
-  }
+    transform: scale(0.8);
 }
 
-.base-leaf {
-  position: absolute;
-  background: linear-gradient(to bottom, var(--leaf-color), rgba(0,80,80,0.2));
-  border-radius: 50% 50% 0 0;
-  transform-origin: bottom center;
-  opacity: 0;
-  transform: scale(0);
-  animation: growBaseLeaf 2s ease-out forwards;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3) inset;
-  z-index: 2;
-}
-
-@keyframes growBaseLeaf {
-  from {
-    transform: scale(0);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1) rotate(var(--rotate, 0deg));
-    opacity: 1;
-  }
-}
-
-.mensaje {
-  position: absolute;
-  bottom: 10%;
-  width: 100%;
-  text-align: center;
-  color: var(--petal-color);
-  font-size: 24px;
-  font-weight: bold;
-  letter-spacing: 3px;
-  line-height: 1.8;
-  opacity: 0;
-  animation: fadeIn 2s ease-in-out 4s forwards;
-  z-index: 100;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@media (max-width: 768px) {
-  .mensaje {
-    font-size: 18px;
-    bottom: 5%;
-  }
+@media (max-width: 600px) {
+    .reproductor {
+        min-width: 90vw;
+        padding: 30px 20px;
+    }
+    .disc {
+        width: 180px;
+        height: 180px;
+    }
+    .bg-polaroid {
+        display: none;
+    }
 }

@@ -25,6 +25,30 @@ body {
   z-index: 1;
 }
 
+/* Banner superior animado */
+.unlock-banner {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(6, 20, 24, 0.92);
+  border: 2px solid #ffd32a;
+  color: #ffd32a;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  box-shadow: 0 0 25px rgba(255, 211, 42, 0.5);
+  z-index: 999;
+  text-align: center;
+  animation: slideBanner 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideBanner {
+  from { top: -70px; opacity: 0; }
+  to { top: 20px; opacity: 1; }
+}
+
 /* Layout horizontal simétrico */
 .layout-container {
   position: relative;
@@ -37,7 +61,7 @@ body {
   width: 100%;
 }
 
-/* Columnas laterales que apilan 2 tarjetas cada una */
+/* Columnas laterales */
 .side-column {
   display: flex;
   flex-direction: column;
@@ -133,8 +157,9 @@ h1 {
   font-weight: 500;
 }
 
-/* Tarjetas Laterales */
+/* Tarjetas Laterales y Estados */
 .side-card {
+  position: relative;
   background: rgba(9, 27, 32, 0.55);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -148,15 +173,70 @@ h1 {
   align-items: center;
   gap: 8px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.4s ease;
   animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
 }
 
-.side-card:hover {
+.lock-shield {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.2rem;
+  z-index: 20;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.9));
+  animation: lockFloat 2.5s ease-in-out infinite;
+}
+
+@keyframes lockFloat {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -58%) scale(1.1); }
+}
+
+/* Estado Bloqueado: Difuminado */
+.reward-card.locked {
+  opacity: 0.72;
+  cursor: not-allowed;
+}
+
+.reward-card.locked .lock-shield {
+  display: block;
+}
+
+.reward-card.locked .card-icon,
+.reward-card.locked h3,
+.reward-card.locked p,
+.reward-card.locked .btn-card {
+  filter: blur(7px) grayscale(85%);
+  pointer-events: none;
+  user-select: none;
+}
+
+.reward-card.locked:hover {
+  transform: none;
+  border-color: rgba(231, 76, 60, 0.45);
+  box-shadow: 0 0 20px rgba(231, 76, 60, 0.3);
+}
+
+/* Estado Desbloqueado */
+.reward-card.unlocked {
+  border-color: rgba(255, 211, 42, 0.55);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45), 0 0 20px rgba(255, 211, 42, 0.25);
+  animation: unlockGlow 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes unlockGlow {
+  0% { transform: scale(0.95); box-shadow: 0 0 35px #ffd32a; }
+  100% { transform: scale(1); }
+}
+
+.reward-card.unlocked:hover {
   transform: translateY(-4px);
-  border-color: rgba(255, 211, 42, 0.4);
+  border-color: rgba(255, 211, 42, 0.8);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6),
-              0 0 25px rgba(255, 211, 42, 0.15);
+              0 0 25px rgba(255, 211, 42, 0.3);
 }
 
 .card-icon {
@@ -176,7 +256,6 @@ h1 {
   margin-bottom: 6px;
 }
 
-/* Botones dorados en las tarjetas */
 .btn-card {
   display: inline-flex;
   align-items: center;
@@ -204,7 +283,7 @@ h1 {
   transform: translateY(0) scale(0.98);
 }
 
-/* Animaciones y Luciérnagas */
+/* Luciérnagas y Animaciones */
 .firefly {
   position: absolute;
   border-radius: 50%;
@@ -224,7 +303,7 @@ h1 {
   to { opacity: 1; transform: scale(1); }
 }
 
-/* Adaptación responsive para pantallas medianas y móviles */
+/* Adaptación responsive */
 @media (max-width: 992px) {
   .layout-container {
     flex-direction: column;
@@ -232,7 +311,7 @@ h1 {
   }
 
   .main-card {
-    order: 1; /* El mensaje siempre va primero arriba */
+    order: 1;
     max-width: 500px;
     width: 100%;
   }

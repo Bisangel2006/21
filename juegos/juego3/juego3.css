@@ -1,0 +1,427 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #091a20 0%, #03080b 70%, #010406 100%);
+  font-family: 'Poppins', sans-serif;
+  color: #e5f4f4;
+  overflow-x: hidden;
+  padding: 25px 20px;
+}
+
+#glow-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.game-wrapper {
+  position: relative;
+  z-index: 10;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Header */
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.btn-back {
+  color: #a5e7dc;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: rgba(14, 56, 56, 0.4);
+  border: 1px solid rgba(77, 208, 225, 0.25);
+  padding: 8px 18px;
+  border-radius: 20px;
+  transition: all 0.25s ease;
+}
+
+.btn-back:hover {
+  background: rgba(22, 160, 133, 0.3);
+  color: #fff;
+  border-color: #64ffda;
+  transform: translateX(-4px);
+}
+
+.header-info {
+  text-align: center;
+  flex: 1;
+}
+
+.retro-badge {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.65rem;
+  color: #ffd32a;
+  background: rgba(255, 211, 42, 0.12);
+  border: 1px dashed rgba(255, 211, 42, 0.4);
+  padding: 5px 12px;
+  border-radius: 6px;
+  letter-spacing: 1px;
+}
+
+.header-info h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.6rem;
+  color: #ffe600;
+  text-shadow: 0 0 16px rgba(255, 230, 0, 0.45);
+  margin-top: 4px;
+}
+
+.score-pill {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.8rem;
+  color: #ffea79;
+  background: rgba(6, 20, 24, 0.85);
+  border: 2px solid #ffd32a;
+  padding: 10px 16px;
+  border-radius: 14px;
+  box-shadow: 0 0 14px rgba(255, 211, 42, 0.25);
+}
+
+/* Stepper de Rondas */
+.rounds-stepper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.round-step {
+  background: rgba(6, 20, 24, 0.7);
+  border: 2px solid rgba(77, 208, 225, 0.2);
+  border-radius: 16px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  opacity: 0.45;
+  transition: all 0.3s ease;
+}
+
+.round-step .step-num {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.65rem;
+  color: #a5e7dc;
+}
+
+.round-step .step-diff {
+  font-size: 0.75rem;
+  color: #d1ecee;
+}
+
+.round-step .step-icon {
+  font-size: 1.2rem;
+  margin-top: 2px;
+}
+
+.round-step.active {
+  opacity: 1;
+  border-color: #ffd32a;
+  background: rgba(14, 56, 56, 0.6);
+  box-shadow: 0 0 18px rgba(255, 211, 42, 0.3);
+  transform: translateY(-2px);
+}
+
+.round-step.active .step-num { color: #ffd32a; }
+
+.round-step.cleared {
+  opacity: 1;
+  border-color: #2ecc71;
+  background: rgba(6, 40, 25, 0.6);
+}
+
+.round-step.cleared .step-num { color: #2ecc71; }
+.round-step.cleared .step-icon { filter: drop-shadow(0 0 6px #2ecc71); }
+
+/* Escenario */
+.letter-stage {
+  background: rgba(6, 20, 24, 0.75);
+  backdrop-filter: blur(16px);
+  border: 2px solid rgba(77, 208, 225, 0.25);
+  border-radius: 28px;
+  padding: 30px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.65);
+}
+
+/* Carta estilo pergamino oscuro */
+.letter-card {
+  width: 100%;
+  max-width: 680px;
+  background: radial-gradient(circle, #0e353d 0%, #051a1f 100%);
+  border: 2px solid #64ffda;
+  border-radius: 20px;
+  padding: 24px 28px;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(100, 255, 218, 0.15);
+}
+
+.letter-stamp {
+  position: absolute;
+  top: -16px;
+  right: 20px;
+  font-size: 2rem;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
+}
+
+.letter-tag {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.62rem;
+  color: #ffd32a;
+  letter-spacing: 1px;
+}
+
+.letter-question {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #fff;
+  margin-top: 10px;
+  line-height: 1.4;
+}
+
+/* Grilla de Opciones */
+.options-container {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+  max-width: 750px;
+}
+
+/* Layouts adaptativos según cantidad */
+.options-container.grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.options-container.grid-cols-3 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* Botón de opción individual */
+.option-btn {
+  background: radial-gradient(circle, #0c2b33 0%, #051417 100%);
+  border: 2px solid rgba(77, 208, 225, 0.28);
+  border-radius: 14px;
+  padding: 14px 18px;
+  color: #e5f4f4;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  user-select: none;
+}
+
+.option-btn:hover:not(:disabled) {
+  border-color: #ffd32a;
+  background: radial-gradient(circle, #164652 0%, #082126 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 211, 42, 0.25);
+}
+
+.option-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.option-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+/* Estados de feedback */
+.option-btn.correct {
+  border-color: #2ecc71 !important;
+  background: radial-gradient(circle, #135532 0%, #072615 100%) !important;
+  box-shadow: 0 0 25px rgba(46, 204, 113, 0.7) !important;
+  color: #fff !important;
+  transform: scale(1.03);
+}
+
+.option-btn.incorrect {
+  border-color: #e74c3c !important;
+  background: radial-gradient(circle, #541712 0%, #240705 100%) !important;
+  animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+
+.feedback-msg {
+  font-size: 0.95rem;
+  font-weight: 600;
+  min-height: 1.4em;
+  color: #ffea79;
+}
+
+/* Transición de Ronda */
+.round-alert {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 80;
+}
+
+.round-alert.hidden { display: none; }
+
+.alert-content {
+  background: #06171c;
+  border: 2px solid #ffd32a;
+  border-radius: 20px;
+  padding: 30px 40px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(255, 211, 42, 0.4);
+  animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.alert-badge {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.75rem;
+  color: #ffd32a;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.alert-content h2 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 3rem;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.alert-content p {
+  color: #a5e7dc;
+  font-size: 0.95rem;
+}
+
+/* Modal de Victoria Final */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  padding: 20px;
+}
+
+.modal-backdrop.hidden { display: none; }
+
+.modal-card {
+  background: #091f26;
+  border: 2px solid #ffd32a;
+  border-radius: 24px;
+  padding: 40px 30px;
+  text-align: center;
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 0 50px rgba(255, 211, 42, 0.35);
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-sparkle { font-size: 3rem; }
+.modal-card h2 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.8rem;
+  color: #ffd32a;
+}
+
+.modal-card p {
+  color: #d1ecee;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.key-badge {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
+  color: #2ecc71;
+  background: rgba(46, 204, 113, 0.15);
+  border: 1px dashed #2ecc71;
+  padding: 8px 14px;
+  border-radius: 8px;
+}
+
+.retro-button {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.75rem;
+  background: #2ecc71;
+  color: #03150b;
+  border: 2px solid #fff;
+  border-radius: 12px;
+  padding: 15px 28px;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #1b8a4a;
+  text-decoration: none;
+}
+
+.retro-button:hover {
+  background: #3fe085;
+  transform: translateY(2px);
+  box-shadow: 0 4px 0 #1b8a4a;
+}
+
+/* Luciérnagas */
+.firefly {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(105vh) scale(0.4); opacity: 0; }
+  30% { opacity: 0.9; }
+  80% { opacity: 0.8; }
+  100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
+
+@media (max-width: 650px) {
+  .options-container {
+    grid-template-columns: 1fr !important;
+  }
+  .letter-question {
+    font-size: 1.15rem;
+  }
+  .round-step .step-diff {
+    display: none;
+  }
+}

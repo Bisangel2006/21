@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nivel 3: Palabras Secretas 💌</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Press+Start+2P&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="juego3.css" />
+</head>
+<body>
+
+  <div id="glow-container"></div>
+
+  <div class="game-wrapper">
+    
+    <!-- Header -->
+    <header class="game-header">
+      <a href="../minimapa/minimapa.html" class="btn-back">&larr; Volver al Mapa</a>
+      <div class="header-info">
+        <span class="retro-badge">WORLD 3</span>
+        <h1>Palabras Secretas</h1>
+      </div>
+      <div class="score-pill">
+        <span>CARTA: </span><span id="round-indicator">1/3</span>
+      </div>
+    </header>
+
+    <!-- Stepper de Rondas -->
+    <div class="rounds-stepper">
+      <div class="round-step active" id="step-1">
+        <span class="step-num">RONDA 1</span>
+        <span class="step-diff">6 opciones</span>
+        <span class="step-icon">🎬</span>
+      </div>
+      <div class="round-step" id="step-2">
+        <span class="step-num">RONDA 2</span>
+        <span class="step-diff">8 opciones</span>
+        <span class="step-icon">💬</span>
+      </div>
+      <div class="round-step" id="step-3">
+        <span class="step-num">RONDA 3</span>
+        <span class="step-diff">10 opciones</span>
+        <span class="step-icon">🗓️</span>
+      </div>
+    </div>
+
+    <!-- Escenario de la Carta -->
+    <main class="letter-stage">
+      
+      <!-- Carta abierta con la pregunta -->
+      <section class="letter-card">
+        <div class="letter-stamp">💌</div>
+        <span class="letter-tag" id="question-category">CINE & PALOMITAS</span>
+        <h2 class="letter-question" id="question-text">¿Cuál es la película que tenemos pendiente de ver?</h2>
+      </section>
+
+      <!-- Contenedor de Botones de Opciones -->
+      <div class="options-container" id="options-container">
+        <!-- Renderizado dinámicamente por JavaScript -->
+      </div>
+
+      <!-- Feedback de respuesta -->
+      <p id="feedback-msg" class="feedback-msg"></p>
+
+    </main>
+
+    <!-- Modal de Transición de Ronda -->
+    <div id="round-alert" class="round-alert hidden">
+      <div class="alert-content">
+        <span class="alert-badge" id="alert-badge">RONDA 1</span>
+        <h2 id="alert-title">¡Pregunta de Cine!</h2>
+        <p id="alert-desc">Elige entre las 6 opciones disponibles</p>
+      </div>
+    </div>
+
+    <!-- Modal de Victoria Final -->
+    <div id="victory-modal" class="modal-backdrop hidden">
+      <div class="modal-card">
+        <div class="modal-sparkle">✨🔑✨</div>
+        <h2>¡Descifrado Total!</h2>
+        <p>Conoces cada detalle a la perfección. Has desbloqueado la <strong>Llave de las Palabras Secretas</strong>.</p>
+        <div class="key-badge">⭐ Llave 3 Desbloqueada</div>
+        <a href="../minimapa/minimapa.html" class="retro-button btn-success">Regresar al Mapa</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="juego3.js"></script>
+</body>
+</html>

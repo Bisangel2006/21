@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nivel Final: El Gran Acorde 🎵</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Press+Start+2P&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="juego4.css" />
+</head>
+<body>
+
+  <div id="glow-container"></div>
+
+  <div class="game-wrapper">
+    
+    <!-- Header -->
+    <header class="game-header">
+      <a href="../minimapa/minimapa.html" class="btn-back">&larr; Volver al Mapa</a>
+      <div class="header-info">
+        <span class="retro-badge final-badge">FINAL BOSS</span>
+        <h1>El Gran Acorde</h1>
+      </div>
+      <div class="score-pill">
+        <span>ACIERTO: </span><span id="hits-count">0/3</span>
+      </div>
+    </header>
+
+    <!-- Stepper de Fases -->
+    <div class="rounds-stepper">
+      <div class="round-step active" id="step-1">
+        <span class="step-num">FASE 1</span>
+        <span class="step-diff">Zona Amplia</span>
+        <span class="step-icon">🌱</span>
+      </div>
+      <div class="round-step" id="step-2">
+        <span class="step-num">FASE 2</span>
+        <span class="step-diff">Zona Media</span>
+        <span class="step-icon">🌿</span>
+      </div>
+      <div class="round-step" id="step-3">
+        <span class="step-num">FASE 3</span>
+        <span class="step-diff">Zona Precisa</span>
+        <span class="step-icon">👑</span>
+      </div>
+    </div>
+
+    <!-- Escenario del Tocadiscos -->
+    <main class="turntable-stage">
+      
+      <div class="stage-info">
+        <p id="instruction-text" class="instruction-text">Presiona el botón cuando la aguja pase sobre el surco dorado</p>
+      </div>
+
+      <!-- Tocadiscos Vintage -->
+      <div class="turntable-chassis">
+        <!-- Vinilo giratorio -->
+        <div class="vinyl-platter" id="vinyl-platter">
+          <div class="vinyl-groove-outer"></div>
+          <div class="vinyl-groove-inner"></div>
+          <div class="vinyl-label">
+            <span class="vinyl-icon">🎵</span>
+          </div>
+        </div>
+
+        <!-- Barra / Medidor del Brazo Tonearm -->
+        <div class="arm-gauge-box">
+          <div class="arm-track" id="arm-track">
+            <!-- Zona objetivo dorada dinámica -->
+            <div class="target-zone" id="target-zone"></div>
+            <!-- Aguja / Indicador deslizante -->
+            <div class="arm-needle" id="arm-needle">
+              <span class="needle-tip">📍</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botón de acción principal -->
+      <div class="action-area">
+        <button id="drop-btn" class="retro-button">¡Soltar Aguja! 🎶</button>
+        <p id="feedback-msg" class="feedback-msg"></p>
+      </div>
+
+    </main>
+
+    <!-- Modal de Transición de Fase -->
+    <div id="round-alert" class="round-alert hidden">
+      <div class="alert-content">
+        <span class="alert-badge" id="alert-badge">FASE 1</span>
+        <h2 id="alert-title">Sintonía Inicial</h2>
+        <p id="alert-desc">Apunta la aguja en el surco dorado</p>
+      </div>
+    </div>
+
+    <!-- Modal de Victoria Final (Sin Spotify) -->
+    <div id="victory-modal" class="modal-backdrop hidden">
+      <div class="modal-card">
+        <div class="modal-sparkle">🏰✨🎵</div>
+        <h2>¡El Gran Acorde!</h2>
+        <p>Has colocado la aguja en el punto exacto. El vinilo gira a la perfección y todas las llaves han sido desbloqueadas.</p>
+
+        <div class="key-badge">👑 4/4 Llaves Maestras Desbloqueadas</div>
+        <a href="../minimapa/minimapa.html" class="retro-button btn-success">Volver al Mapa Completo</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="juego4.js"></script>
+</body>
+</html>

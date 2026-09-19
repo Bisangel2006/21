@@ -1,0 +1,459 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #091a20 0%, #03080b 70%, #010406 100%);
+  font-family: 'Poppins', sans-serif;
+  color: #e5f4f4;
+  overflow-x: hidden;
+  padding: 25px 20px;
+}
+
+#glow-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.game-wrapper {
+  position: relative;
+  z-index: 10;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Header */
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.btn-back {
+  color: #a5e7dc;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: rgba(14, 56, 56, 0.4);
+  border: 1px solid rgba(77, 208, 225, 0.25);
+  padding: 8px 18px;
+  border-radius: 20px;
+  transition: all 0.25s ease;
+}
+
+.btn-back:hover {
+  background: rgba(22, 160, 133, 0.3);
+  color: #fff;
+  border-color: #64ffda;
+  transform: translateX(-4px);
+}
+
+.header-info {
+  text-align: center;
+  flex: 1;
+}
+
+.empty-space {
+  width: 120px;
+}
+
+.retro-badge {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.65rem;
+  color: #ffd32a;
+  background: rgba(255, 211, 42, 0.12);
+  border: 1px dashed rgba(255, 211, 42, 0.4);
+  padding: 5px 12px;
+  border-radius: 6px;
+  letter-spacing: 1px;
+}
+
+.header-info h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.6rem;
+  color: #ffe600;
+  text-shadow: 0 0 16px rgba(255, 230, 0, 0.45);
+  margin-top: 4px;
+}
+
+/* Stepper de Rondas */
+.rounds-stepper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.round-step {
+  background: rgba(6, 20, 24, 0.7);
+  border: 2px solid rgba(77, 208, 225, 0.2);
+  border-radius: 16px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  opacity: 0.45;
+  transition: all 0.3s ease;
+}
+
+.round-step .step-num {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.65rem;
+  color: #a5e7dc;
+}
+
+.round-step .step-diff {
+  font-size: 0.78rem;
+  color: #d1ecee;
+}
+
+.round-step .step-icon {
+  font-size: 1.2rem;
+  margin-top: 2px;
+}
+
+/* Ronda Activa */
+.round-step.active {
+  opacity: 1;
+  border-color: #ffd32a;
+  background: rgba(14, 56, 56, 0.6);
+  box-shadow: 0 0 18px rgba(255, 211, 42, 0.3);
+  transform: translateY(-2px);
+}
+
+.round-step.active .step-num {
+  color: #ffd32a;
+}
+
+/* Ronda Completada */
+.round-step.cleared {
+  opacity: 1;
+  border-color: #2ecc71;
+  background: rgba(6, 40, 25, 0.6);
+}
+
+.round-step.cleared .step-num {
+  color: #2ecc71;
+}
+
+.round-step.cleared .step-icon {
+  filter: drop-shadow(0 0 6px #2ecc71);
+}
+
+/* Escenario Principal */
+.garden-stage {
+  background: rgba(6, 20, 24, 0.75);
+  backdrop-filter: blur(16px);
+  border: 2px solid rgba(77, 208, 225, 0.25);
+  border-radius: 28px;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.65);
+}
+
+/* Barra de Turno / Semáforo */
+.turn-banner {
+  width: 100%;
+  max-width: 650px;
+  padding: 12px 20px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.turn-banner.waiting {
+  background: rgba(255, 211, 42, 0.1);
+  border: 1px dashed #ffd32a;
+  color: #ffea79;
+}
+
+.turn-banner.memorize {
+  background: rgba(231, 76, 60, 0.2);
+  border: 2px solid #e74c3c;
+  color: #ff7675;
+  box-shadow: 0 0 15px rgba(231, 76, 60, 0.3);
+  animation: pulseWatch 1.2s infinite alternate;
+}
+
+.turn-banner.player {
+  background: rgba(46, 204, 113, 0.2);
+  border: 2px solid #2ecc71;
+  color: #55efc4;
+  box-shadow: 0 0 20px rgba(46, 204, 113, 0.35);
+}
+
+@keyframes pulseWatch {
+  from { transform: scale(0.99); }
+  to { transform: scale(1.01); }
+}
+
+/* Grid de Tulipanes */
+.tulips-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 650px;
+}
+
+.tulip-card {
+  position: relative;
+  background: radial-gradient(circle, #0e3038 0%, #06171c 100%);
+  border: 2px solid rgba(77, 208, 225, 0.3);
+  border-radius: 20px;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  user-select: none;
+}
+
+.tulip-card:hover:not(:disabled) {
+  transform: translateY(-5px);
+  border-color: #ffd32a;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.tulip-card:disabled {
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+
+.flower-icon {
+  font-size: 3rem;
+  filter: grayscale(80%) brightness(0.6);
+  transition: all 0.25s ease;
+}
+
+.flower-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.55rem;
+  color: #6bb1b8;
+  margin-top: 8px;
+}
+
+.tulip-card.lit {
+  border-color: #ffe600 !important;
+  background: radial-gradient(circle, #523f00 0%, #1a1705 100%) !important;
+  transform: scale(1.08) translateY(-6px);
+  box-shadow: 0 0 35px rgba(255, 230, 0, 0.85);
+}
+
+.tulip-card.lit .flower-icon {
+  filter: grayscale(0%) brightness(1.25);
+  transform: scale(1.2);
+}
+
+.tulip-card.error {
+  border-color: #e74c3c !important;
+  background: radial-gradient(circle, #4a110c 0%, #1c0806 100%) !important;
+  animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+
+/* Botones */
+.status-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.retro-button {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.75rem;
+  color: #03080b;
+  background: #ffd32a;
+  border: 2px solid #fff;
+  border-radius: 12px;
+  padding: 15px 28px;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #b38f00, 0 10px 15px rgba(0, 0, 0, 0.4);
+  transition: all 0.15s ease;
+  text-decoration: none;
+}
+
+.retro-button:hover:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow: 0 4px 0 #b38f00, 0 6px 12px rgba(0, 0, 0, 0.4);
+  background: #ffe600;
+}
+
+.retro-button:active:not(:disabled) {
+  transform: translateY(6px);
+  box-shadow: none;
+}
+
+.retro-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.feedback-msg {
+  font-size: 0.95rem;
+  font-weight: 600;
+  min-height: 1.4em;
+  color: #ffea79;
+}
+
+/* Cartel emergente de transición de ronda */
+.round-alert {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 80;
+  transition: opacity 0.3s ease;
+}
+
+.round-alert.hidden {
+  display: none;
+}
+
+.alert-content {
+  background: #06171c;
+  border: 2px solid #ffd32a;
+  border-radius: 20px;
+  padding: 30px 40px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(255, 211, 42, 0.4);
+  animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.alert-badge {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.75rem;
+  color: #ffd32a;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.alert-content h2 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 3rem;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.alert-content p {
+  color: #a5e7dc;
+  font-size: 0.95rem;
+}
+
+/* Modales */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  padding: 20px;
+}
+
+.modal-backdrop.hidden {
+  display: none;
+}
+
+.modal-card {
+  background: #091f26;
+  border: 2px solid #ffd32a;
+  border-radius: 24px;
+  padding: 40px 30px;
+  text-align: center;
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 0 50px rgba(255, 211, 42, 0.35);
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-sparkle { font-size: 3rem; }
+.modal-card h2 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.8rem;
+  color: #ffd32a;
+}
+.modal-card p {
+  color: #d1ecee;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.key-badge {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.7rem;
+  color: #2ecc71;
+  background: rgba(46, 204, 113, 0.15);
+  border: 1px dashed #2ecc71;
+  padding: 8px 14px;
+  border-radius: 8px;
+}
+.btn-success {
+  background: #2ecc71;
+  color: #03150b;
+  box-shadow: 0 6px 0 #1b8a4a;
+}
+.btn-success:hover { background: #3fe085; }
+
+/* Luciérnagas */
+.firefly {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(105vh) scale(0.4); opacity: 0; }
+  30% { opacity: 0.9; }
+  80% { opacity: 0.8; }
+  100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
+
+@media (max-width: 768px) {
+  .empty-space { display: none; }
+  .tulips-grid { grid-template-columns: repeat(2, 1fr); }
+  .tulip-card { height: 120px; }
+  .round-step { padding: 8px; }
+  .round-step .step-diff { display: none; }
+}
